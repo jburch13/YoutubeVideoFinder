@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">YoutubeVideoFinder</string>
+    <string name="youtube_video_no_title">No title</string>
+    <string name="youtube_video_no_description">No description</string>
+    <string name="main_search_no_results">No results</string>
+    <string name="main_search_error">There was an error searching videos, try again</string>
 </resources>

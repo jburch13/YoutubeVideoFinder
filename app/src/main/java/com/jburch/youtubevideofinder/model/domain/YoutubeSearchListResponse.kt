@@ -1,12 +1,27 @@
 package com.jburch.youtubevideofinder.model.domain
 
+import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 
 data class YoutubeSearchListResponse(val items: List<YoutubeVideo>? = null)
 
 data class YoutubeVideo(
     @SerializedName("snippet") val video: YoutubeVideoInfo? = null
-)
+) {
+
+    // Gson
+
+    companion object {
+        fun toJson(video: YoutubeVideo): String {
+            return GsonBuilder().create().toJson(video)
+        }
+
+        fun fromJson(json: String): YoutubeVideo {
+            return GsonBuilder().create().fromJson(json, YoutubeVideo::class.java)
+        }
+    }
+
+}
 
 data class YoutubeVideoInfo(
     @SerializedName("title") val title: String? = null,

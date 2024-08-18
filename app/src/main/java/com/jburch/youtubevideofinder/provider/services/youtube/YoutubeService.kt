@@ -1,6 +1,7 @@
 package com.jburch.youtubevideofinder.provider.services.youtube
 
 import android.content.Context
+import android.util.Log
 import com.jburch.youtubevideofinder.R
 import com.jburch.youtubevideofinder.core.RetrofitHelper
 import com.jburch.youtubevideofinder.model.domain.YoutubeSearchListResponse
@@ -34,6 +35,7 @@ object YoutubeService {
             @Query("part") part: String = "snippet",
             @Query("maxResults") maxResults: Int = 10,
             @Query("q") q: String,
+            @Query("type") type: String = "video",
             @Query("key") apiKey: String
         ): Call<YoutubeSearchListResponse>
     }
@@ -49,16 +51,23 @@ object YoutubeService {
                 call: Call<YoutubeSearchListResponse>,
                 response: Response<YoutubeSearchListResponse>
             ) {
-                val videos = response.body()?.items?.toMutableList()
-                if (videos?.isNotEmpty() == true) {
-                    success(videos)
+                if (response.isSuccessful) {
+                    val videos = response.body()?.items?.toMutableList()
+                    if (videos != null) {
+                        success(videos)
+                    } else {
+                        // TODO: videos is empty
+                        failure()
+                    }
                 } else {
-                    // TODO: Tractament d'errors
+                    failure()
                 }
             }
 
             override fun onFailure(call: Call<YoutubeSearchListResponse>, t: Throwable) {
-                // Is done in onResponse
+                // TODO: onFailure
+                Log.e("search onFailure", "Error searching videos: ${t.localizedMessage}", t);
+                failure()
             }
 
         })

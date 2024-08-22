@@ -1,8 +1,11 @@
 package com.jburch.youtubevideofinder.usecases.main
 
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
@@ -57,6 +60,15 @@ class MainActivity : AppCompatActivity() {
         this.let { context ->
             binding.recyclerView.layoutManager = LinearLayoutManager(context)
             binding.recyclerView.adapter = SearchRecyclerViewAdapter(context, arrayListOf())
+        }
+
+        if (VERSION.SDK_INT >= VERSION_CODES.R) {
+            window.insetsController?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 

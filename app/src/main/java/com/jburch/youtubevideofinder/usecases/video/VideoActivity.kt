@@ -1,10 +1,13 @@
 package com.jburch.youtubevideofinder.usecases.video
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.jburch.youtubevideofinder.databinding.ActivityVideoBinding
 import com.jburch.youtubevideofinder.model.domain.YoutubeVideo
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 class VideoActivity : AppCompatActivity() {
 
@@ -24,6 +27,25 @@ class VideoActivity : AppCompatActivity() {
         video = VideoRouter.video(intent)
 
         // View Model
-        viewModel = ViewModelProvider(this).get(VideoViewModel::class.java)
+        viewModel = ViewModelProvider(this)[VideoViewModel::class.java]
+
+        setup()
+    }
+
+    private fun setup() {
+
+        lifecycle.addObserver(binding.ytPlayerView)
+
+        val ytPlayerListener = object : AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                video?.id?.videoId?.let { videoId ->
+                    youTubePlayer.loadVideo(videoId, 0F)
+                } ?: run {
+                    Log.e("VideoActivity", "Video ID is null, cannot load the video")
+                }
+            }
+        }
+
+        binding.ytPlayerView.addYouTubePlayerListener(ytPlayerListener)
     }
 }

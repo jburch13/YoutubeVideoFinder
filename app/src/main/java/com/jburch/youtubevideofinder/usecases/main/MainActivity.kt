@@ -2,13 +2,13 @@ package com.jburch.youtubevideofinder.usecases.main
 
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.Observer
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jburch.youtubevideofinder.databinding.ActivityMainBinding
@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private var isEditing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 

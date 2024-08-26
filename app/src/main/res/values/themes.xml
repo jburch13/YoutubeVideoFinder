@@ -13,9 +13,15 @@
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <!-- Customize your theme here. -->
-
     </style>
     <style name="Theme.YoutubeVideoFinder.FullScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- SplashScreen -->
+    <style name="Theme.YoutubeVideoFinder.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.YoutubeVideoFinder</item>
     </style>
 </resources>

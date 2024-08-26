@@ -17,6 +17,7 @@
         <activity
             android:name=".usecases.video.VideoActivity"
             android:theme="@style/Theme.YoutubeVideoFinder.FullScreen"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".usecases.main.MainActivity"
